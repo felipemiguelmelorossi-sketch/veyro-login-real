@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veyro — Entrar</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(
+        circle at top,
+        #18213d 0%,
+        #090b12 45%,
+        #050609 100%
+      );
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(15, 18, 29, .94);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 40px 35px;
+      box-shadow: 0 25px 80px rgba(0,0,0,.5);
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg,#6d8cff,#a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      color: #9ca3af;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #d1d5db;
+      margin-bottom: 7px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 15px;
+      margin-bottom: 18px;
+      border: 1px solid #292e3d;
+      border-radius: 10px;
+      background: #0b0e16;
+      color: white;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #7187ff;
+      box-shadow: 0 0 0 3px rgba(113,135,255,.12);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg,#6178ff,#8b5cf6);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+      margin-top: 4px;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .switch {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 14px;
+      color: #9ca3af;
+    }
+
+    .switch span {
+      color: #8295ff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .forgot {
+      text-align: right;
+      margin-top: -8px;
+      margin-bottom: 18px;
+    }
+
+    .forgot span {
+      color: #8295ff;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      background: rgba(99,102,241,.1);
+      color: #a5b4fc;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .error {
+      background: rgba(239,68,68,.1);
+      color: #fca5a5;
+    }
+
+    .success {
+      background: rgba(34,197,94,.1);
+      color: #86efac;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+      text-align: center;
+      color: #555b6d;
+      font-size: 11px;
+      margin-top: 28px;
+    }
+
+    @media(max-width:480px) {
+      .container {
+        padding: 32px 24px;
+      }
+
+      .logo {
+        font-size: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="logo">VEYRO</div>
+    <div class="subtitle">Seu entretenimento em um só lugar</div>
+
+    <!-- LOGIN -->
+    <div id="loginBox">
+
+      <h2>Bem-vindo de volta</h2>
+
+      <p class="description">
+        Entre na sua conta para continuar assistindo.
+      </p>
+
+      <form id="loginForm">
+
+        <label for="loginEmail">E-mail</label>
+
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="seu@email.com"
+          required
+        >
+
+        <label for="loginPassword">Senha</label>
+
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Sua senha"
+          required
+        >
+
+        <div class="forgot">
+          <span onclick="forgotPassword()">
+            Esqueci minha senha
+          </span>
+        </div>
+
+        <button type="submit" id="loginButton">
+          Entrar
+        </button>
+
+      </form>
+
+      <div class="switch">
+        Ainda não possui uma conta?
+        <span onclick="showRegister()">Criar conta</span>
+      </div>
+
+    </div>
+
+
+    <!-- CADASTRO -->
+    <div id="registerBox" class="hidden">
+
+      <h2>Criar conta</h2>
+
+      <p class="description">
+        Crie sua conta Veyro gratuitamente.
+      </p>
+
+      <form id="registerForm">
+
+        <label for="registerName">Nome</label>
+
+        <input
+          type="text"
+          id="registerName"
+          placeholder="Seu nome"
+          required
+        >
+
+        <label for="registerEmail">E-mail</label>
+
+        <input
+          type="email"
+          id="registerEmail"
+          placeholder="seu@email.com"
+          required
+        >
+
+        <label for="registerPassword">Senha</label>
+
+        <input
+          type="password"
+          id="registerPassword"
+          placeholder="Crie uma senha"
+          minlength="6"
+          required
+        >
+
+        <button type="submit" id="registerButton">
+          Criar conta
+        </button>
+
+      </form>
+
+      <div class="switch">
+        Já possui uma conta?
+        <span onclick="showLogin()">Entrar</span>
+      </div>
+
+    </div>
+
+
+    <div id="message" class="message"></div>
+
+    <div class="footer">
+      © 2026 Veyro
+    </div>
+
+  </div>
+
+
+  <script>
+
+    // ==========================================
+    // SUPABASE DO VEYRO
+    // ==========================================
+
+    const SUPABASE_URL =
+      "https://dnojapjtsgxsgmxxjhrp.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_zZy8CirGsWqjzYIv2GIanA_BQaASny8";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+
+    // ==========================================
+    // CONFIGURAÇÃO DO VEYRO
+    // ==========================================
+
+    // Quando você tiver o link do seu MegaEmbed,
+    // coloque ele aqui.
+    //
+    // Exemplo:
+    // const VEYRO_URL = "https://seusite.com";
+
+    const VEYRO_URL = "";
+
+
+    // ==========================================
+    // TROCAR LOGIN / CADASTRO
+    // ==========================================
+
+    function showRegister() {
+
+      document
+        .getElementById("loginBox")
+        .classList.add("hidden");
+
+      document
+        .getElementById("registerBox")
+        .classList.remove("hidden");
+
+      clearMessage();
+    }
+
+
+    function showLogin() {
+
+      document
+        .getElementById("registerBox")
+        .classList.add("hidden");
+
+      document
+        .getElementById("loginBox")
+        .classList.remove("hidden");
+
+      clearMessage();
+    }
+
+
+    // ==========================================
+    // MENSAGENS
+    // ==========================================
+
+    function showMessage(text, type = "") {
+
+      const message =
+        document.getElementById("message");
+
+      message.textContent = text;
+
+      message.className =
+        "message " + type;
+
+      message.style.display = "block";
+    }
+
+
+    function clearMessage() {
+
+      const message =
+        document.getElementById("message");
+
+      message.style.display = "none";
+    }
+
+
+    // ==========================================
+    // CRIAR CONTA REAL
+    // ==========================================
+
+    document
+      .getElementById("registerForm")
+      .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const name =
+          document.getElementById("registerName").value.trim();
+
+        const email =
+          document.getElementById("registerEmail").value.trim();
+
+        const password =
+          document.getElementById("registerPassword").value;
+
+        const button =
+          document.getElementById("registerButton");
+
+        button.disabled = true;
+        button.textContent = "Criando conta...";
+
+        clearMessage();
+
+        try {
+
+          const { data, error } =
+            await supabaseClient.auth.signUp({
+
+              email: email,
+
+              password: password,
+
+              options: {
+                data: {
+                  name: name
+                }
+              }
+
+            });
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          showMessage(
+            "Conta criada com sucesso! Verifique seu e-mail para confirmar a conta.",
+            "success"
+          );
+
+
+          document.getElementById("registerForm").reset();
+
+        } catch (error) {
+
+          showMessage(
+            traduzirErro(error.message),
+            "error"
+          );
+
+        } finally {
+
+          button.disabled = false;
+          button.textContent = "Criar conta";
+
+        }
+
+      });
+
+
+    // ==========================================
+    // LOGIN REAL
+    // ==========================================
+
+    document
+      .getElementById("loginForm")
+      .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const email =
+          document.getElementById("loginEmail").value.trim();
+
+        const password =
+          document.getElementById("loginPassword").value;
+
+        const button =
+          document.getElementById("loginButton");
+
+        button.disabled = true;
+        button.textContent = "Entrando...";
+
+        clearMessage();
+
+        try {
+
+          const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+
+              email: email,
+
+              password: password
+
+            });
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          showMessage(
+            "Login realizado com sucesso!",
+            "success"
+          );
+
+
+          setTimeout(() => {
+
+            if (VEYRO_URL) {
+
+              window.location.href = VEYRO_URL;
+
+            } else {
+
+              showMessage(
+                "Login realizado! Agora precisamos colocar o link do seu MegaEmbed no código.",
+                "success"
+              );
+
+            }
+
+          }, 1000);
+
+
+        } catch (error) {
+
+          showMessage(
+            traduzirErro(error.message),
+            "error"
+          );
+
+        } finally {
+
+          button.disabled = false;
+          button.textContent = "Entrar";
+
+        }
+
+      });
+
+
+    // ==========================================
+    // RECUPERAÇÃO DE SENHA
+    // ==========================================
+
+    async function forgotPassword() {
+
+      const email =
+        document.getElementById("loginEmail").value.trim();
+
+
+      if (!email) {
+
+        showMessage(
+          "Digite seu e-mail primeiro.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      try {
+
+        const { error } =
+          await supabaseClient.auth.resetPasswordForEmail(
+            email,
+            {
+              redirectTo:
+                window.location.origin
+            }
+          );
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        showMessage(
+          "Enviamos um link de recuperação para seu e-mail.",
+          "success"
+        );
+
+
+      } catch (error) {
+
+        showMessage(
+          traduzirErro(error.message),
+          "error"
+        );
+
+      }
+
+    }
+
+
+    // ==========================================
+    // TRADUÇÃO DE ERROS
+    // ==========================================
+
+    function traduzirErro(error) {
+
+      const texto =
+        error.toLowerCase();
+
+
+      if (texto.includes("invalid login credentials")) {
+        return "E-mail ou senha incorretos.";
+      }
+
+      if (texto.includes("user already registered")) {
+        return "Esse e-mail já possui uma conta.";
+      }
+
+      if (texto.includes("password should be at least")) {
+        return "A senha precisa ter pelo menos 6 caracteres.";
+      }
+
+      if (texto.includes("email not confirmed")) {
+        return "Confirme seu e-mail antes de entrar.";
+      }
+
+      if (texto.includes("invalid email")) {
+        return "Digite um e-mail válido.";
+      }
+
+      return error;
+    }
+
+
+    // ==========================================
+    // VERIFICAR SE JÁ ESTÁ LOGADO
+    // ==========================================
+
+    async function verificarUsuario() {
+
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
+
+
+      if (session && VEYRO_URL) {
+
+        window.location.href = VEYRO_URL;
+
+      }
+
+    }
+
+
+    verificarUsuario();
+
+  </script>
+
+</body>
+</html>
