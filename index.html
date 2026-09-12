@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Veyro — Entrar</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -18,170 +19,387 @@
 
     body {
       min-height: 100vh;
-      background: radial-gradient(
-        circle at top,
-        #18213d 0%,
-        #090b12 45%,
-        #050609 100%
-      );
+      background:
+        radial-gradient(circle at 20% 20%, rgba(100, 80, 255, .18), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(170, 70, 255, .12), transparent 30%),
+        linear-gradient(135deg, #030409, #080914 50%, #030409);
+
       color: white;
+
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+
+      padding: 25px;
+
+      overflow-x: hidden;
     }
 
-    .container {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(15, 18, 29, .94);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 20px;
-      padding: 40px 35px;
-      box-shadow: 0 25px 80px rgba(0,0,0,.5);
+    /* Luzes de fundo */
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: .12;
+      pointer-events: none;
     }
+
+    body::before {
+      background: #5b5cff;
+      top: -250px;
+      left: -200px;
+    }
+
+    body::after {
+      background: #9b4dff;
+      bottom: -250px;
+      right: -200px;
+    }
+
+    /* CARD */
+
+    .container {
+      position: relative;
+
+      width: 100%;
+      max-width: 430px;
+
+      background: rgba(10, 12, 22, .88);
+
+      border: 1px solid rgba(255,255,255,.09);
+
+      border-radius: 24px;
+
+      padding: 42px 38px;
+
+      box-shadow:
+        0 30px 100px rgba(0,0,0,.65),
+        inset 0 1px rgba(255,255,255,.04);
+
+      backdrop-filter: blur(20px);
+
+      animation: aparecer .6s ease;
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(15px) scale(.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* LOGO */
 
     .logo {
       text-align: center;
-      font-size: 42px;
+
+      font-size: 48px;
+
       font-weight: 900;
-      letter-spacing: -2px;
-      margin-bottom: 8px;
-      background: linear-gradient(135deg,#6d8cff,#a855f7);
+
+      letter-spacing: -3px;
+
+      margin-bottom: 6px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffffff,
+          #9b8cff,
+          #6c63ff
+        );
+
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+
+      text-shadow: 0 0 40px rgba(110,100,255,.2);
     }
 
     .subtitle {
       text-align: center;
-      color: #9ca3af;
-      font-size: 14px;
-      margin-bottom: 32px;
+
+      color: #8f95a8;
+
+      font-size: 13px;
+
+      margin-bottom: 36px;
     }
 
+    /* TITULO */
+
     h2 {
-      font-size: 24px;
+      font-size: 25px;
+
       margin-bottom: 8px;
+
+      letter-spacing: -.5px;
     }
 
     .description {
-      color: #9ca3af;
+      color: #8d93a5;
+
       font-size: 14px;
-      margin-bottom: 24px;
+
+      line-height: 1.5;
+
+      margin-bottom: 25px;
     }
+
+    /* LABEL */
 
     label {
       display: block;
-      font-size: 13px;
-      color: #d1d5db;
-      margin-bottom: 7px;
+
+      font-size: 12px;
+
+      font-weight: 600;
+
+      color: #c8ccda;
+
+      margin-bottom: 8px;
     }
+
+    /* INPUT */
 
     input {
       width: 100%;
-      padding: 14px 15px;
+
+      padding: 15px 16px;
+
       margin-bottom: 18px;
-      border: 1px solid #292e3d;
-      border-radius: 10px;
-      background: #0b0e16;
+
+      border: 1px solid #292d3d;
+
+      border-radius: 11px;
+
+      background: rgba(4,6,13,.8);
+
       color: white;
+
       outline: none;
+
       font-size: 14px;
+
+      transition: .25s;
+    }
+
+    input::placeholder {
+      color: #565c6d;
     }
 
     input:focus {
-      border-color: #7187ff;
-      box-shadow: 0 0 0 3px rgba(113,135,255,.12);
+      border-color: #7771ff;
+
+      background: rgba(8,10,20,.95);
+
+      box-shadow:
+        0 0 0 3px rgba(119,113,255,.10),
+        0 0 25px rgba(119,113,255,.06);
     }
 
-    button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg,#6178ff,#8b5cf6);
-      color: white;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: .2s;
-      margin-top: 4px;
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.08);
-    }
-
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    .switch {
-      text-align: center;
-      margin-top: 22px;
-      font-size: 14px;
-      color: #9ca3af;
-    }
-
-    .switch span {
-      color: #8295ff;
-      font-weight: bold;
-      cursor: pointer;
-    }
+    /* ESQUECI SENHA */
 
     .forgot {
       text-align: right;
-      margin-top: -8px;
-      margin-bottom: 18px;
+
+      margin-top: -7px;
+
+      margin-bottom: 19px;
     }
 
     .forgot span {
-      color: #8295ff;
+      color: #8d86ff;
+
       font-size: 12px;
+
       cursor: pointer;
+
+      transition: .2s;
     }
+
+    .forgot span:hover {
+      color: white;
+    }
+
+    /* BOTAO */
+
+    button {
+      width: 100%;
+
+      padding: 15px;
+
+      border: none;
+
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #6267ff,
+          #8b5cf6
+        );
+
+      color: white;
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: .25s;
+
+      box-shadow:
+        0 8px 25px rgba(99,102,241,.20);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+
+      filter: brightness(1.08);
+
+      box-shadow:
+        0 12px 32px rgba(99,102,241,.28);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: .55;
+
+      cursor: not-allowed;
+
+      transform: none;
+
+      box-shadow: none;
+    }
+
+    /* TROCAR LOGIN/CADASTRO */
+
+    .switch {
+      text-align: center;
+
+      margin-top: 24px;
+
+      font-size: 13px;
+
+      color: #777d8e;
+    }
+
+    .switch span {
+      color: #918bff;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: .2s;
+    }
+
+    .switch span:hover {
+      color: white;
+    }
+
+    /* MENSAGEM */
 
     .message {
       display: none;
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 8px;
-      background: rgba(99,102,241,.1);
-      color: #a5b4fc;
+
+      margin-top: 17px;
+
+      padding: 12px;
+
+      border-radius: 9px;
+
+      background: rgba(99,102,241,.10);
+
+      color: #b5b9ff;
+
       text-align: center;
-      font-size: 13px;
+
+      font-size: 12px;
+
+      line-height: 1.4;
     }
 
     .error {
-      background: rgba(239,68,68,.1);
-      color: #fca5a5;
+      background: rgba(239,68,68,.10);
+
+      color: #ffaaaa;
     }
 
     .success {
-      background: rgba(34,197,94,.1);
-      color: #86efac;
+      background: rgba(34,197,94,.10);
+
+      color: #91f0b0;
     }
 
     .hidden {
       display: none;
     }
 
+    /* LINHA DECORATIVA */
+
+    .line {
+      height: 1px;
+
+      width: 100%;
+
+      margin: 27px 0 0;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.08),
+          transparent
+        );
+    }
+
+    /* RODAPE */
+
     .footer {
       text-align: center;
-      color: #555b6d;
-      font-size: 11px;
-      margin-top: 28px;
+
+      color: #444958;
+
+      font-size: 10px;
+
+      margin-top: 20px;
+
+      letter-spacing: .3px;
     }
 
     @media(max-width:480px) {
+
+      body {
+        padding: 15px;
+      }
+
       .container {
-        padding: 32px 24px;
+        padding: 34px 24px;
+
+        border-radius: 20px;
       }
 
       .logo {
-        font-size: 38px;
+        font-size: 42px;
+      }
+
+      h2 {
+        font-size: 23px;
       }
     }
   </style>
@@ -191,7 +409,9 @@
 
   <div class="container">
 
-    <div class="logo">VEYRO</div>
+    <div class="logo">
+      VEYRO
+    </div>
 
     <div class="subtitle">
       Seu entretenimento em um só lugar
@@ -202,7 +422,9 @@
 
     <div id="loginBox">
 
-      <h2>Bem-vindo de volta</h2>
+      <h2>
+        Bem-vindo de volta
+      </h2>
 
       <p class="description">
         Entre na sua conta para continuar assistindo.
@@ -218,6 +440,7 @@
           type="email"
           id="loginEmail"
           placeholder="seu@email.com"
+          autocomplete="email"
           required
         >
 
@@ -229,6 +452,7 @@
           type="password"
           id="loginPassword"
           placeholder="Sua senha"
+          autocomplete="current-password"
           required
         >
 
@@ -240,7 +464,10 @@
 
         </div>
 
-        <button type="submit" id="loginButton">
+        <button
+          type="submit"
+          id="loginButton"
+        >
           Entrar
         </button>
 
@@ -263,7 +490,9 @@
 
     <div id="registerBox" class="hidden">
 
-      <h2>Criar conta</h2>
+      <h2>
+        Criar conta
+      </h2>
 
       <p class="description">
         Crie sua conta Veyro gratuitamente.
@@ -279,6 +508,7 @@
           type="text"
           id="registerName"
           placeholder="Seu nome"
+          autocomplete="name"
           required
         >
 
@@ -290,6 +520,7 @@
           type="email"
           id="registerEmail"
           placeholder="seu@email.com"
+          autocomplete="email"
           required
         >
 
@@ -301,11 +532,15 @@
           type="password"
           id="registerPassword"
           placeholder="Crie uma senha"
+          autocomplete="new-password"
           minlength="6"
           required
         >
 
-        <button type="submit" id="registerButton">
+        <button
+          type="submit"
+          id="registerButton"
+        >
           Criar conta
         </button>
 
@@ -326,9 +561,10 @@
 
     <div id="message" class="message"></div>
 
+    <div class="line"></div>
 
     <div class="footer">
-      © 2026 Veyro
+      © 2026 Veyro • Todos os direitos reservados
     </div>
 
   </div>
@@ -354,7 +590,7 @@
 
 
     // ==========================================
-    // SITE DO VEYRO / MEGAEMBED
+    // VEYRO
     // ==========================================
 
     const VEYRO_URL =
@@ -376,6 +612,7 @@
         .classList.remove("hidden");
 
       clearMessage();
+
     }
 
 
@@ -394,11 +631,12 @@
         .classList.remove("hidden");
 
       clearMessage();
+
     }
 
 
     // ==========================================
-    // MENSAGEM
+    // MENSAGENS
     // ==========================================
 
     function showMessage(text, type = "") {
@@ -412,6 +650,7 @@
         "message " + type;
 
       message.style.display = "block";
+
     }
 
 
@@ -430,92 +669,96 @@
 
     document
       .getElementById("registerForm")
-      .addEventListener("submit", async function(event) {
+      .addEventListener(
+        "submit",
+        async function(event) {
 
-        event.preventDefault();
+          event.preventDefault();
 
-        const name =
-          document
-            .getElementById("registerName")
-            .value
-            .trim();
+          const name =
+            document
+              .getElementById("registerName")
+              .value
+              .trim();
 
-        const email =
-          document
-            .getElementById("registerEmail")
-            .value
-            .trim();
+          const email =
+            document
+              .getElementById("registerEmail")
+              .value
+              .trim();
 
-        const password =
-          document
-            .getElementById("registerPassword")
-            .value;
+          const password =
+            document
+              .getElementById("registerPassword")
+              .value;
 
-        const button =
-          document.getElementById("registerButton");
+          const button =
+            document.getElementById(
+              "registerButton"
+            );
 
-        button.disabled = true;
-
-        button.textContent =
-          "Criando conta...";
-
-        clearMessage();
-
-
-        try {
-
-          const { data, error } =
-            await supabaseClient.auth.signUp({
-
-              email: email,
-
-              password: password,
-
-              options: {
-
-                data: {
-                  name: name
-                }
-
-              }
-
-            });
-
-
-          if (error) {
-            throw error;
-          }
-
-
-          showMessage(
-            "Conta criada com sucesso! Verifique seu e-mail para confirmar a conta.",
-            "success"
-          );
-
-
-          document
-            .getElementById("registerForm")
-            .reset();
-
-
-        } catch (error) {
-
-          showMessage(
-            traduzirErro(error.message),
-            "error"
-          );
-
-
-        } finally {
-
-          button.disabled = false;
+          button.disabled = true;
 
           button.textContent =
-            "Criar conta";
+            "Criando conta...";
+
+          clearMessage();
+
+
+          try {
+
+            const { data, error } =
+              await supabaseClient.auth.signUp({
+
+                email: email,
+
+                password: password,
+
+                options: {
+
+                  data: {
+                    name: name
+                  }
+
+                }
+
+              });
+
+
+            if (error) {
+              throw error;
+            }
+
+
+            showMessage(
+              "Conta criada com sucesso! Verifique seu e-mail para confirmar a conta.",
+              "success"
+            );
+
+
+            document
+              .getElementById("registerForm")
+              .reset();
+
+
+          } catch (error) {
+
+            showMessage(
+              traduzirErro(error.message),
+              "error"
+            );
+
+          } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+              "Criar conta";
+
+          }
 
         }
-
-      });
+      );
 
 
     // ==========================================
@@ -524,88 +767,90 @@
 
     document
       .getElementById("loginForm")
-      .addEventListener("submit", async function(event) {
+      .addEventListener(
+        "submit",
+        async function(event) {
 
-        event.preventDefault();
+          event.preventDefault();
 
+          const email =
+            document
+              .getElementById("loginEmail")
+              .value
+              .trim();
 
-        const email =
-          document
-            .getElementById("loginEmail")
-            .value
-            .trim();
+          const password =
+            document
+              .getElementById("loginPassword")
+              .value;
 
-        const password =
-          document
-            .getElementById("loginPassword")
-            .value;
+          const button =
+            document.getElementById(
+              "loginButton"
+            );
 
-
-        const button =
-          document.getElementById("loginButton");
-
-
-        button.disabled = true;
-
-        button.textContent =
-          "Entrando...";
-
-        clearMessage();
-
-
-        try {
-
-          const { data, error } =
-            await supabaseClient.auth.signInWithPassword({
-
-              email: email,
-
-              password: password
-
-            });
-
-
-          if (error) {
-            throw error;
-          }
-
-
-          showMessage(
-            "Login realizado com sucesso! Abrindo Veyro...",
-            "success"
-          );
-
-
-          setTimeout(function() {
-
-            window.location.href =
-              VEYRO_URL;
-
-          }, 1000);
-
-
-        } catch (error) {
-
-          showMessage(
-            traduzirErro(error.message),
-            "error"
-          );
-
-
-        } finally {
-
-          button.disabled = false;
+          button.disabled = true;
 
           button.textContent =
-            "Entrar";
+            "Entrando...";
+
+          clearMessage();
+
+
+          try {
+
+            const { data, error } =
+              await supabaseClient.auth
+                .signInWithPassword({
+
+                  email: email,
+
+                  password: password
+
+                });
+
+
+            if (error) {
+              throw error;
+            }
+
+
+            showMessage(
+              "Login realizado com sucesso! Abrindo Veyro...",
+              "success"
+            );
+
+
+            setTimeout(function() {
+
+              window.location.href =
+                VEYRO_URL;
+
+            }, 900);
+
+
+          } catch (error) {
+
+            showMessage(
+              traduzirErro(error.message),
+              "error"
+            );
+
+          } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+              "Entrar";
+
+          }
 
         }
-
-      });
+      );
 
 
     // ==========================================
-    // ESQUECI MINHA SENHA
+    // RECUPERAÇÃO DE SENHA
     // ==========================================
 
     async function forgotPassword() {
@@ -625,6 +870,7 @@
         );
 
         return;
+
       }
 
 
@@ -679,7 +925,9 @@
           "invalid login credentials"
         )
       ) {
+
         return "E-mail ou senha incorretos.";
+
       }
 
 
@@ -688,7 +936,9 @@
           "user already registered"
         )
       ) {
+
         return "Esse e-mail já possui uma conta.";
+
       }
 
 
@@ -697,7 +947,9 @@
           "password should be at least"
         )
       ) {
+
         return "A senha precisa ter pelo menos 6 caracteres.";
+
       }
 
 
@@ -706,7 +958,9 @@
           "email not confirmed"
         )
       ) {
+
         return "Confirme seu e-mail antes de entrar.";
+
       }
 
 
@@ -715,7 +969,9 @@
           "invalid email"
         )
       ) {
+
         return "Digite um e-mail válido.";
+
       }
 
 
@@ -737,9 +993,6 @@
 
 
       if (session) {
-
-        // Usuário já está logado.
-        // Pode entrar diretamente no Veyro.
 
         window.location.href =
           VEYRO_URL;
