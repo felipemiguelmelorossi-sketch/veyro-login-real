@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -191,9 +192,14 @@
   <div class="container">
 
     <div class="logo">VEYRO</div>
-    <div class="subtitle">Seu entretenimento em um só lugar</div>
+
+    <div class="subtitle">
+      Seu entretenimento em um só lugar
+    </div>
+
 
     <!-- LOGIN -->
+
     <div id="loginBox">
 
       <h2>Bem-vindo de volta</h2>
@@ -204,7 +210,9 @@
 
       <form id="loginForm">
 
-        <label for="loginEmail">E-mail</label>
+        <label for="loginEmail">
+          E-mail
+        </label>
 
         <input
           type="email"
@@ -213,7 +221,9 @@
           required
         >
 
-        <label for="loginPassword">Senha</label>
+        <label for="loginPassword">
+          Senha
+        </label>
 
         <input
           type="password"
@@ -223,9 +233,11 @@
         >
 
         <div class="forgot">
+
           <span onclick="forgotPassword()">
             Esqueci minha senha
           </span>
+
         </div>
 
         <button type="submit" id="loginButton">
@@ -235,14 +247,20 @@
       </form>
 
       <div class="switch">
+
         Ainda não possui uma conta?
-        <span onclick="showRegister()">Criar conta</span>
+
+        <span onclick="showRegister()">
+          Criar conta
+        </span>
+
       </div>
 
     </div>
 
 
     <!-- CADASTRO -->
+
     <div id="registerBox" class="hidden">
 
       <h2>Criar conta</h2>
@@ -253,7 +271,9 @@
 
       <form id="registerForm">
 
-        <label for="registerName">Nome</label>
+        <label for="registerName">
+          Nome
+        </label>
 
         <input
           type="text"
@@ -262,7 +282,9 @@
           required
         >
 
-        <label for="registerEmail">E-mail</label>
+        <label for="registerEmail">
+          E-mail
+        </label>
 
         <input
           type="email"
@@ -271,7 +293,9 @@
           required
         >
 
-        <label for="registerPassword">Senha</label>
+        <label for="registerPassword">
+          Senha
+        </label>
 
         <input
           type="password"
@@ -288,14 +312,20 @@
       </form>
 
       <div class="switch">
+
         Já possui uma conta?
-        <span onclick="showLogin()">Entrar</span>
+
+        <span onclick="showLogin()">
+          Entrar
+        </span>
+
       </div>
 
     </div>
 
 
     <div id="message" class="message"></div>
+
 
     <div class="footer">
       © 2026 Veyro
@@ -307,7 +337,7 @@
   <script>
 
     // ==========================================
-    // SUPABASE DO VEYRO
+    // SUPABASE
     // ==========================================
 
     const SUPABASE_URL =
@@ -324,20 +354,15 @@
 
 
     // ==========================================
-    // CONFIGURAÇÃO DO VEYRO
+    // SITE DO VEYRO / MEGAEMBED
     // ==========================================
 
-    // Quando você tiver o link do seu MegaEmbed,
-    // coloque ele aqui.
-    //
-    // Exemplo:
-    // const VEYRO_URL = "https://seusite.com";
-
-    const VEYRO_URL = "";
+    const VEYRO_URL =
+      "https://veyro.megaembed.com";
 
 
     // ==========================================
-    // TROCAR LOGIN / CADASTRO
+    // MOSTRAR CADASTRO
     // ==========================================
 
     function showRegister() {
@@ -354,6 +379,10 @@
     }
 
 
+    // ==========================================
+    // MOSTRAR LOGIN
+    // ==========================================
+
     function showLogin() {
 
       document
@@ -369,7 +398,7 @@
 
 
     // ==========================================
-    // MENSAGENS
+    // MENSAGEM
     // ==========================================
 
     function showMessage(text, type = "") {
@@ -388,15 +417,15 @@
 
     function clearMessage() {
 
-      const message =
-        document.getElementById("message");
+      document
+        .getElementById("message")
+        .style.display = "none";
 
-      message.style.display = "none";
     }
 
 
     // ==========================================
-    // CRIAR CONTA REAL
+    // CRIAR CONTA
     // ==========================================
 
     document
@@ -406,21 +435,32 @@
         event.preventDefault();
 
         const name =
-          document.getElementById("registerName").value.trim();
+          document
+            .getElementById("registerName")
+            .value
+            .trim();
 
         const email =
-          document.getElementById("registerEmail").value.trim();
+          document
+            .getElementById("registerEmail")
+            .value
+            .trim();
 
         const password =
-          document.getElementById("registerPassword").value;
+          document
+            .getElementById("registerPassword")
+            .value;
 
         const button =
           document.getElementById("registerButton");
 
         button.disabled = true;
-        button.textContent = "Criando conta...";
+
+        button.textContent =
+          "Criando conta...";
 
         clearMessage();
+
 
         try {
 
@@ -432,9 +472,11 @@
               password: password,
 
               options: {
+
                 data: {
                   name: name
                 }
+
               }
 
             });
@@ -451,7 +493,10 @@
           );
 
 
-          document.getElementById("registerForm").reset();
+          document
+            .getElementById("registerForm")
+            .reset();
+
 
         } catch (error) {
 
@@ -460,10 +505,13 @@
             "error"
           );
 
+
         } finally {
 
           button.disabled = false;
-          button.textContent = "Criar conta";
+
+          button.textContent =
+            "Criar conta";
 
         }
 
@@ -471,7 +519,7 @@
 
 
     // ==========================================
-    // LOGIN REAL
+    // LOGIN
     // ==========================================
 
     document
@@ -480,19 +528,30 @@
 
         event.preventDefault();
 
+
         const email =
-          document.getElementById("loginEmail").value.trim();
+          document
+            .getElementById("loginEmail")
+            .value
+            .trim();
 
         const password =
-          document.getElementById("loginPassword").value;
+          document
+            .getElementById("loginPassword")
+            .value;
+
 
         const button =
           document.getElementById("loginButton");
 
+
         button.disabled = true;
-        button.textContent = "Entrando...";
+
+        button.textContent =
+          "Entrando...";
 
         clearMessage();
+
 
         try {
 
@@ -512,25 +571,15 @@
 
 
           showMessage(
-            "Login realizado com sucesso!",
+            "Login realizado com sucesso! Abrindo Veyro...",
             "success"
           );
 
 
-          setTimeout(() => {
+          setTimeout(function() {
 
-            if (VEYRO_URL) {
-
-              window.location.href = VEYRO_URL;
-
-            } else {
-
-              showMessage(
-                "Login realizado! Agora precisamos colocar o link do seu MegaEmbed no código.",
-                "success"
-              );
-
-            }
+            window.location.href =
+              VEYRO_URL;
 
           }, 1000);
 
@@ -542,10 +591,13 @@
             "error"
           );
 
+
         } finally {
 
           button.disabled = false;
-          button.textContent = "Entrar";
+
+          button.textContent =
+            "Entrar";
 
         }
 
@@ -553,13 +605,16 @@
 
 
     // ==========================================
-    // RECUPERAÇÃO DE SENHA
+    // ESQUECI MINHA SENHA
     // ==========================================
 
     async function forgotPassword() {
 
       const email =
-        document.getElementById("loginEmail").value.trim();
+        document
+          .getElementById("loginEmail")
+          .value
+          .trim();
 
 
       if (!email) {
@@ -576,13 +631,14 @@
       try {
 
         const { error } =
-          await supabaseClient.auth.resetPasswordForEmail(
-            email,
-            {
-              redirectTo:
-                window.location.origin
-            }
-          );
+          await supabaseClient.auth
+            .resetPasswordForEmail(
+              email,
+              {
+                redirectTo:
+                  window.location.origin
+              }
+            );
 
 
         if (error) {
@@ -609,7 +665,7 @@
 
 
     // ==========================================
-    // TRADUÇÃO DE ERROS
+    // TRADUZIR ERROS
     // ==========================================
 
     function traduzirErro(error) {
@@ -618,44 +674,75 @@
         error.toLowerCase();
 
 
-      if (texto.includes("invalid login credentials")) {
+      if (
+        texto.includes(
+          "invalid login credentials"
+        )
+      ) {
         return "E-mail ou senha incorretos.";
       }
 
-      if (texto.includes("user already registered")) {
+
+      if (
+        texto.includes(
+          "user already registered"
+        )
+      ) {
         return "Esse e-mail já possui uma conta.";
       }
 
-      if (texto.includes("password should be at least")) {
+
+      if (
+        texto.includes(
+          "password should be at least"
+        )
+      ) {
         return "A senha precisa ter pelo menos 6 caracteres.";
       }
 
-      if (texto.includes("email not confirmed")) {
+
+      if (
+        texto.includes(
+          "email not confirmed"
+        )
+      ) {
         return "Confirme seu e-mail antes de entrar.";
       }
 
-      if (texto.includes("invalid email")) {
+
+      if (
+        texto.includes(
+          "invalid email"
+        )
+      ) {
         return "Digite um e-mail válido.";
       }
 
+
       return error;
+
     }
 
 
     // ==========================================
-    // VERIFICAR SE JÁ ESTÁ LOGADO
+    // VERIFICAR SESSÃO
     // ==========================================
 
     async function verificarUsuario() {
 
       const {
         data: { session }
-      } = await supabaseClient.auth.getSession();
+      } =
+        await supabaseClient.auth.getSession();
 
 
-      if (session && VEYRO_URL) {
+      if (session) {
 
-        window.location.href = VEYRO_URL;
+        // Usuário já está logado.
+        // Pode entrar diretamente no Veyro.
+
+        window.location.href =
+          VEYRO_URL;
 
       }
 
@@ -668,3 +755,4 @@
 
 </body>
 </html>
+```
